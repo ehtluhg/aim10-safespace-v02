@@ -38,8 +38,8 @@
     </span>
 
     <ul id="menu">
-        <li><a href="index.html">HOME</a></li>
-        <li class="dropdown"><a href="categories.html" class="dropdown-toggle">CATEGORIES</a>
+        <li><a href="{{ url('/') }}">HOME</a></li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle">CATEGORIES</a>
             <ul class="text-uppercase dropdown-menu" aria-labelledby="navbarDropdown">
                 @php
                     $categories = App\Models\Category::where('status', '1')->get();
@@ -65,7 +65,7 @@
     <div class="close-btn">CLOSE</div>
 
     <ul id="menu">
-        <li><a href="index.html">HOME</a></li>
+        <li><a href="{{ url('/') }}">HOME</a></li>
         <li><a href="categories.html">CATEGORIES</a></li>
         <li><a href="about.html">ABOUT</a></li>
         <li><a href="profile.html">PROFILE</a></li>

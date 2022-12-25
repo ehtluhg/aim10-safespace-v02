@@ -69,6 +69,16 @@
             padding: 0px !important;
             padding-right: 500px;
         }
+
+        .code-bg {
+        width: fit-content;
+        min-width: 100%;
+        background-color: #0f0f0f !important;
+        overflow-x: scroll !important;
+        position: relative;
+        padding: 1rem 1rem;
+        margin-bottom: 1rem;
+        }
     </style>
 
 </head>

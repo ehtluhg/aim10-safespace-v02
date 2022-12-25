@@ -4,7 +4,118 @@
 
 @section('content')
 
-<div class="row mt-4">
+<div class="row">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Categories</p>
+                            <h5 class="font-weight-bolder mb-0">
+                                {{ $categories }} Categories
+                                <!-- <span class="text-success text-sm font-weight-bolder">+55%</span> -->
+                            </h5>
+                            <br>
+                            <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{{ url('admin/category') }}">
+                                View Details
+                                <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                            <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Posts</p>
+                            <h5 class="font-weight-bolder mb-0">
+                                {{ $posts }} Post(s)
+                                <!-- <span class="text-success text-sm font-weight-bolder">+3%</span> -->
+                            </h5>
+                            <br>
+                            <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{{ url('admin/posts')}}">
+                                View Details
+                                <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                            <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Users</p>
+                            <h5 class="font-weight-bolder mb-0">
+                                {{ $users }} User(s)
+                                <!-- <span class="text-danger text-sm font-weight-bolder">-2%</span> -->
+                            </h5>
+                            <br>
+                            <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{{ url('admin/users') }}">
+                                View Details
+                                <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                            <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Admins</p>
+                            <h5 class="font-weight-bolder mb-0">
+                                {{ $admins }} Admin(s)
+                                <!-- <span class="text-success text-sm font-weight-bolder">+5%</span> -->
+                            </h5>
+                            <br>
+                            <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{{ url('admin/users') }}">
+                                View Details
+                                <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                            <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row mt-4">
     <div class="col-lg-7 mb-lg-0 mb-4">
         <div class="card">
             <div class="card-body p-3">
@@ -32,6 +143,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 @endsection
