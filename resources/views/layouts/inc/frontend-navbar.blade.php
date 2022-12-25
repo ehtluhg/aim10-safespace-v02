@@ -14,6 +14,18 @@
         color: #fff;
         padding: 10px;
         font-size: 15px;
+        padding-right: 5px;
+    }
+
+    .dropdown-menu a {
+        transition: all 500ms;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: #0f0f0f;
+        color: gray;
+        font-size: 17px;
+        font-size-adjust: 20px;
     }
 </style>
 
@@ -28,12 +40,12 @@
     <ul id="menu">
         <li><a href="index.html">HOME</a></li>
         <li class="dropdown"><a href="categories.html" class="dropdown-toggle">CATEGORIES</a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="text-uppercase dropdown-menu" aria-labelledby="navbarDropdown">
                 @php
                     $categories = App\Models\Category::where('status', '1')->get();
                 @endphp
                 @foreach($categories as $catitem)
-                    <li><a class="dropdown-item" href="#">{{ $catitem->name }}</a></li>
+                    <li><a class="dropdown-item" href="{{ url('category/' . $catitem->id )}}">{{ $catitem->name }}</a></li>
                 @endforeach
             </ul>
         </li>
