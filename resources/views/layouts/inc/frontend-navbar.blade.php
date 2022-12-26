@@ -52,7 +52,19 @@
 
         <li><a href="about.html">ABOUT</a></li>
         <li><a href="profile.html">PROFILE</a></li>
-        <li><a href="login.html" style="color: gray">LOGIN</a></li>
+        @if(Auth::check())
+            <li><button type="button" class="btn btn-outline-light btn-sm" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    LOGOUT
+                </button>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                </form>
+            </li>
+        @else
+            <li><button type="button" class="btn btn-light btn-sm" href="{{ route('login') }}">
+                LOGIN
+            </button></li>
+        @endif
     </ul>
 
     <div id="toggle">

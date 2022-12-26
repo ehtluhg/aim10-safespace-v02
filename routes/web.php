@@ -26,6 +26,9 @@ Route::get('/', [App\Http\Controllers\Frontend\FrontendController::class, 'index
 Route::get('category/{category_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'viewCategoryPost']);
 Route::get('category/{category_id}/{post_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'viewPost']);
 
+Route::post('comments', [App\Http\Controllers\Frontend\CommentController::class, 'store']);
+Route::post('delete-comment', [App\Http\Controllers\Frontend\CommentController::class, 'delete']);
+
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
