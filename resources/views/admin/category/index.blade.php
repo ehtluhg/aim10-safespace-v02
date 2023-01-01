@@ -38,7 +38,7 @@
                                         <div class="d-flex px-2 py-1">
                                             <div>
                                                 <h6 class="mb-0 text-sm">{{ $item->id }}</h6>
-                                                <img src="{{ asset('uploads/category/' . $item->image) }}" class="avatar avatar-sm me-3" alt="user1" width="50px" height="50px">
+                                                <img src="{{ asset('uploads/category/' . $item->file->file_name) }}" class="avatar avatar-sm me-3" alt="user1" width="50px" height="50px">
                                             </div>
                                         </div>
                                     </td>

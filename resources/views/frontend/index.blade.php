@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "safespace —— Home")
+@section('title', "$settings->website_name")
 
 @section('content')
 <!-- Hero Section Starts Here-->
@@ -25,10 +25,12 @@
     <div class="whitespace"></div>
     <div class="whitespace"></div>
 
+    @if(Auth::check())
+
     @foreach($latest_post as $latest_post_item)
     <div style="padding: 5px 100px;">
         <h2 class="wow fadeInUp" data-wow-delay="1.2s"><a href="{{ url('category/' . $latest_post_item->category->id . '/' . $latest_post_item->id) }}" style="text-decoration: none; color: #fff;">{{ $latest_post_item->title }}</a></h2>
-        <h4 class="wow fadeInUp" data-wow-delay="1.4s"><span style="color: gray;">By</span> {{ $latest_post_item->user->name }}</h4>
+        <h4 class="wow fadeInUp" data-wow-delay="1.4s"><span style="color: gray;">By</span> <a onclick="location.href='{{ url('profile/' . $latest_post_item->user->id) }}'">{{ $latest_post_item->user->name }}</a></h4>
 
         <span class="wow fadeInUp badge text-bg-dark" data-wow-delay="1.4s">{{ $latest_post_item->category->name }}</span>
 
@@ -49,6 +51,20 @@
     </div>
 
     @endforeach
+
+    @else
+
+    <div style="padding: 5px 100px;">
+        <h2 class="wow fadeInUp" data-wow-delay="1.2s">Log in first to view posts...</h2>
+
+        <br>
+
+        <hr style="opacity: 5%;">
+
+        <br>
+    </div>
+
+    @endif
 
     <!-- <div class="row">
         <div class="col-lg-8"></div>

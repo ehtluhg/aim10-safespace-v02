@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\File;
 use App\Models\User;
 use App\Models\Comment;
 use App\Models\Category;
@@ -36,5 +37,10 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class, 'post_id', 'id');
+    }
+
+    public function file()
+    {
+        return $this->belongsTo(File::class, 'file_id', 'id');
     }
 }

@@ -25,6 +25,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', [App\Http\Controllers\Frontend\FrontendController::class, 'index']);
 Route::get('category/{category_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'viewCategoryPost']);
 Route::get('category/{category_id}/{post_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'viewPost']);
+Route::get('search', [App\Http\Controllers\Frontend\FrontendController::class, 'searchUsers']);
+Route::get('requests', [App\Http\Controllers\Frontend\FrontendController::class, 'friendRequests']);
+
+Route::get('profile', [App\Http\Controllers\Frontend\UserController::class, 'index']);
+Route::post('profile', [App\Http\Controllers\Frontend\UserController::class, 'updateUserDetails']);
+Route::get('profile/{user_id}', [App\Http\Controllers\Frontend\UserController::class, 'viewUserDetails']);
 
 Route::post('comments', [App\Http\Controllers\Frontend\CommentController::class, 'store']);
 Route::post('delete-comment', [App\Http\Controllers\Frontend\CommentController::class, 'delete']);
@@ -51,4 +57,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('users', [App\Http\Controllers\Admin\UserController::class, 'index']);
     Route::get('users/{user_id}', [App\Http\Controllers\Admin\UserController::class, 'edit']);
     Route::put('update-user/{user_id}', [App\Http\Controllers\Admin\UserController::class, 'update']);
+
+    Route::get('settings', [App\Http\Controllers\Admin\SettingsController::class, 'index']);
+    Route::post('settings', [App\Http\Controllers\Admin\SettingsController::class, 'save']);
 });

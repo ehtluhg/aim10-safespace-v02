@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\File;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -32,12 +33,16 @@ class PostController extends Controller
         $post->category_id = $data['category_id'];
         $post->title = $data['title'];
         $post->description = $data['description'];
+
         if($request->hasfile('file_id'))
         {
+            $upload = new File;
             $file = $request->file('file_id');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move('uploads/posts/', $filename);
-            $post->image = $filename;
+            $file->move('uploads/post/', $filename);
+            $upload->file_name = $filename;
+            $upload->save();
+            $post->file_id = $upload->id;
         }
 
         $post->status = $request-> status == true ? '1':'0';
@@ -63,12 +68,16 @@ class PostController extends Controller
         $post->category_id = $data['category_id'];
         $post->title = $data['title'];
         $post->description = $data['description'];
+        
         if($request->hasfile('file_id'))
         {
+            $upload = new File;
             $file = $request->file('file_id');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move('uploads/posts/', $filename);
-            $post->image = $filename;
+            $file->move('uploads/post/', $filename);
+            $upload->file_name = $filename;
+            $upload->save();
+            $post->file_id = $upload->id;
         }
 
         $post->status = $request-> status == true ? '1':'0';

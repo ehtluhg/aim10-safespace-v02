@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +9,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
+
+    @php
+        $settings = App\Models\Setting::find(1);
+    @endphp
+
+    @if($settings)
+    <link rel="icon" href="{{ asset('uploads/settings/' . $settings->favicon) }}" type="image/x-icon">
+    @endif
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,7 +30,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto Mono:200, 400, 600' rel='stylesheet'>
 
     <!-- Scroll Animations -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
     <script>
@@ -32,6 +41,7 @@
     <script src="t.min.js"></script>
 
 </head>
+
 <body>
     <div id="app" class="wrapper">
         @include('layouts.inc.frontend-navbar')
@@ -45,23 +55,20 @@
 
     <!-- Greensock CDN -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script type="text/javascript">
-
         // Navigation Starts Here
-        $("#toggle").click(function () {
+        $("#toggle").click(function() {
             $(this).toggleClass('on');
             $("#resize").toggleClass("active");
         });
 
-        $("#resize ul li a").click(function () {
+        $("#resize ul li a").click(function() {
             $(this).toggleClass('on');
             $("#resize").toggleClass("active");
         });
 
-        $(".close-btn").click(function () {
+        $(".close-btn").click(function() {
             $(this).toggleClass('on');
             $("#resize").toggleClass("active");
         });
@@ -90,4 +97,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
+
 </html>

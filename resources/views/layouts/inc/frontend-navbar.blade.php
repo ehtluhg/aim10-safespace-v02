@@ -32,38 +32,64 @@
 <nav>
     <span id="brand">
         <a class="navbar-brand" href="#">
-            <img src="{{ asset('assets/img/ss_logo_white.png') }}" alt="" width="30" height="30">
+            @php
+            $settings = App\Models\Setting::find(1);
+            @endphp
+
+            @if($settings)
+            <img src="{{ asset('uploads/settings/' . $settings->logo) }}" alt="" width="30" height="30">
+            @endif
         </a>
-        <a href="index.html">safespace</a>
+        <a href="{{ url('/') }}">safespace</a>
     </span>
+
+
 
     <ul id="menu">
         <li><a href="{{ url('/') }}">HOME</a></li>
         <li class="dropdown"><a href="#" class="dropdown-toggle">CATEGORIES</a>
             <ul class="text-uppercase dropdown-menu" aria-labelledby="navbarDropdown">
                 @php
-                    $categories = App\Models\Category::where('status', '1')->get();
+                $categories = App\Models\Category::where('status', '1')->get();
                 @endphp
                 @foreach($categories as $catitem)
-                    <li><a class="dropdown-item" href="{{ url('category/' . $catitem->id )}}">{{ $catitem->name }}</a></li>
+                <li><a class="dropdown-item" href="{{ url('category/' . $catitem->id )}}">{{ $catitem->name }}</a></li>
                 @endforeach
             </ul>
         </li>
 
         <li><a href="about.html">ABOUT</a></li>
-        <li><a href="profile.html">PROFILE</a></li>
+        <li class="dropdown"><a href="{{ url('/profile') }}" class="dropdown-toggle">PROFILE</a>
+            <ul class="text-uppercase dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{{ url('requests')}}">FRIEND REQUESTS</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <form data-wow-delay="1.0s" class="d-flex wow fadeInUp" id="add-post" action="{{ url('search') }}" method="GET" role="search">
+                <input class="form-control me-2" name="search" type="search" value="{{ Request::get('search') }}" placeholder="Find friends..." aria-label="Search">
+                <button class="btn btn-outline-success btn-sm mx-2" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search mb-1" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg></button>
+            </form>
+        </li>
+
         @if(Auth::check())
-            <li><button type="button" class="btn btn-outline-light btn-sm" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    LOGOUT
-                </button>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                    @csrf
-                </form>
-            </li>
+        <li><button type="button" class="btn btn-outline-light btn-sm" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                LOGOUT
+            </button>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                @csrf
+            </form>
+        </li>
         @else
-            <li><button type="button" class="btn btn-light btn-sm" href="{{ route('login') }}">
-                LOGIN
-            </button></li>
+        <li><button type="button" class="btn btn-light btn-sm" href="{{ route('login') }}">
+                {{ __('LOGIN') }}
+            </button>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+            </form>
+        </li>
         @endif
     </ul>
 

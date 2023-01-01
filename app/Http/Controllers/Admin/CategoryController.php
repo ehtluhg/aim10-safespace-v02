@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
+use App\Models\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use App\Http\Requests\Admin\CategoryFormRequest;
 
 class CategoryController extends Controller
@@ -32,10 +32,13 @@ class CategoryController extends Controller
 
         if($request->hasfile('image'))
         {
+            $upload = new File;
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move('uploads/category/', $filename);
-            $category->image = $filename;
+            $upload->file_name = $filename;
+            $upload->save();
+            $category->image = $upload->id;
         }
 
         $category->status = $request-> status == true ? '1':'0';
@@ -67,10 +70,13 @@ class CategoryController extends Controller
                 File::delete($destination);
             }
             
+            $upload = new File;
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move('uploads/category/', $filename);
-            $category->image = $filename;
+            $upload->file_name = $filename;
+            $upload->save();
+            $category->image = $upload->id;
         }
 
         $category->status = $request-> status == true ? '1':'0';

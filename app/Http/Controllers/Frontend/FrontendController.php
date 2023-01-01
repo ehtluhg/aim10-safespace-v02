@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\Post;
+use App\Models\User;
+use App\Models\Setting;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,9 +13,10 @@ class FrontendController extends Controller
 {
     public function index()
     {
+        $settings = Setting::find(1);
         $all_categories = Category::where('status', '1')->get();
         $latest_post = Post::where('status', '1')->orderBy('created_at', 'DESC')->get()->take(10);
-        return view('frontend.index', compact('all_categories', 'latest_post'));
+        return view('frontend.index', compact('all_categories', 'latest_post', 'settings'));
     }
 
     public function viewCategoryPost($category_id)
@@ -45,5 +48,16 @@ class FrontendController extends Controller
             return redirect('/');
         }
         return view('frontend.index');
+    }
+
+    public function searchUsers(Request $request)
+    {
+        if ($request->search)
+        {
+            $searchUsers = User::where('name', 'LIKE', '%' . $request->search . '%')->latest()->paginate(3);
+            return view('frontend.pages.search', compact('searchUsers'));
+        } else {
+            return redirect()->back()->with('message', 'No matches found...');
+        }
     }
 }
