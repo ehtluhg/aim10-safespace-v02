@@ -26,8 +26,10 @@
                     <br>
 
                     <div class="mt-3">
-                        <button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">ADD FRIEND</button>
+                        <button type="button" class="wow fadeInUp btn btn-outline-success btn-sm" data-wow-delay="1.6s">FRIEND REQUEST SENT</button>
+                        <button type="button" class="wow fadeInUp btn btn-outline-secondary btn-sm" data-wow-delay="1.6s">FRIENDS</button>
                         <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFRIEND</button>
+                        <a href="{{ url('add-friend/' . $user->id ) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">ADD FRIEND</button></a>
                     </div>
 
                     <hr style="opacity: 5%;">

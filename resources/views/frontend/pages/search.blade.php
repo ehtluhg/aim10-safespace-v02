@@ -21,17 +21,23 @@
                     <h4 class="wow fadeInUp" data-wow-delay="1.4s">{{ $searchResult->name }}</h4>
 
                     <span class="wow fadeInUp badge text-bg-dark" data-wow-delay="1.4s">{{ $searchResult->email }}</span>
-
-
-
                     <br>
 
-                    <!-- @if(Auth::check() && (Auth::id() == $friends->user_id || Auth::id() == $friends->friend_id) && ($user->user_id == $friends->user_id || $user->friend_id == $friends->friend_id)) -->
+                    @if(Auth::id() != $searchResult->id)
                     <div class="mt-3">
-                        <button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">ADD FRIEND</button>
-                        <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFRIEND</button>
+                        @if($friendStatus == "Friend Request Sent")
+                        <button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">FOLLOWING</button>
+                        @elseif($friendStatus == "Unfriend")
+                        <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFOLLOW</button>
+                        @else
+                        <a href="{{ url('/add-friend/' . $searchResult->id ) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">FOLLOW</button></a>
+                        @endif
                     </div>
-
+                    @else
+                    <div class="mt-3">
+                        <a href="{{ url('profile') }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">VIEW PROFILE</button></a>
+                    </div>
+                    @endif
                     <hr style="opacity: 5%;">
 
                 </div>
@@ -44,8 +50,6 @@
                 </div>
 
                 <br>
-
-
 
                 @endforelse
 

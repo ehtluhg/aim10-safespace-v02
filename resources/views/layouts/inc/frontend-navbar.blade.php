@@ -47,7 +47,7 @@
 
     <ul id="menu">
         <li><a href="{{ url('/') }}">HOME</a></li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle">CATEGORIES</a>
+        <li class="dropdown"><a href="{{ url('categories') }}" class="dropdown-toggle">CATEGORIES</a>
             <ul class="text-uppercase dropdown-menu" aria-labelledby="navbarDropdown">
                 @php
                 $categories = App\Models\Category::where('status', '1')->get();
@@ -83,8 +83,9 @@
             </form>
         </li>
         @else
-        <li><button type="button" class="btn btn-light btn-sm" href="{{ route('login') }}">
+        <li><button type="button" class="btn btn-light btn-sm"><a href="{{ url('/login') }}">
                 {{ __('LOGIN') }}
+            </a>
             </button>
             <form method="POST" action="{{ route('login') }}">
                 @csrf

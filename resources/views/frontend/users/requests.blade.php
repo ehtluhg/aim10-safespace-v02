@@ -16,24 +16,35 @@
                 <h1 class="wow fadeInUp" data-wow-delay="1s">Friend Requests</h1>
                 <hr>
                 @if(Auth::check())
+                @forelse($friendRequestsList as $friendRequests)
                 <div>
-                    <h4 class="wow fadeInUp" data-wow-delay="1.4s">{{ $user->name }}</h4>
+                    <h4 class="wow fadeInUp" data-wow-delay="1.4s">{{ $friendRequests->requestedBy->name }}</h4>
 
-                    <span class="wow fadeInUp badge text-bg-dark" data-wow-delay="1.4s">{{ $user->email }}</span>
+                    <span class="wow fadeInUp badge text-bg-dark" data-wow-delay="1.4s">{{ $friendRequests->requestedBy->email }}</span>
 
 
 
                     <br>
 
                     <div class="mt-3">
-                        <button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">ADD FRIEND</button>
-                        <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFRIEND</button>
+                        <a href="{{ url('accept-friend/' . $friendRequests->requestedBy->id ) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">ACCEPT</button></a>
+                        <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">CANCEL</button>
                     </div>
 
                     <hr style="opacity: 5%;">
 
                 </div>
 
+                @empty
+                <br>
+
+                <div>
+                    <h4 class="wow fadeInUp" data-wow-delay="1.4s">No friend requests yet :(</h4>
+                </div>
+
+                <br>
+
+                @endforelse
                 @else
                 <br>
 

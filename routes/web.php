@@ -23,6 +23,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', [App\Http\Controllers\Frontend\FrontendController::class, 'index']);
+Route::get('categories', [App\Http\Controllers\Frontend\FrontendController::class, 'viewCategories']);
 Route::get('category/{category_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'viewCategoryPost']);
 Route::get('category/{category_id}/{post_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'viewPost']);
 Route::get('search', [App\Http\Controllers\Frontend\FrontendController::class, 'searchUsers']);
@@ -34,6 +35,11 @@ Route::get('profile/{user_id}', [App\Http\Controllers\Frontend\UserController::c
 
 Route::post('comments', [App\Http\Controllers\Frontend\CommentController::class, 'store']);
 Route::post('delete-comment', [App\Http\Controllers\Frontend\CommentController::class, 'delete']);
+
+Route::match(['get','post'],'add-friend/{friend_id}', [App\Http\Controllers\Frontend\UserController::class, 'addFriend']);
+Route::match(['get','post'],'accept-friend/{friend_id}', [App\Http\Controllers\Frontend\UserController::class, 'acceptFriend']);
+
+
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 

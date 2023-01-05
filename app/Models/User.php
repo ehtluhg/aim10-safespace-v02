@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\UserDetails;
+use App\Models\Friendship;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +29,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserDetails::class, 'user_id', 'id');
     }
-    
+
+    public function getUserId($users_id)
+    {
+        $getUserId = User::select('id')->where('user_id', $users_id)->first();
+        return $getUserId->id;
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -47,6 +54,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    
 }
