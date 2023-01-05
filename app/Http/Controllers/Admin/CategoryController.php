@@ -86,7 +86,7 @@ class CategoryController extends Controller
         return redirect('admin/category')->with('message', 'Category Updated Successfully!');
     }
 
-    public function delete($category_id)
+    public function destroy($category_id)
     {
         $category = Category::find($category_id);
         if($category)
@@ -94,7 +94,7 @@ class CategoryController extends Controller
             $destination = 'uploads/category/' . $category->image;
             if(File::exists($destination))
             {
-                File::delete($destination);
+                File::destroy($destination);
             }
             $category->posts()->delete();
             $category->delete();

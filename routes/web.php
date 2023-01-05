@@ -39,6 +39,9 @@ Route::post('delete-comment', [App\Http\Controllers\Frontend\CommentController::
 Route::match(['get','post'],'add-friend/{friend_id}', [App\Http\Controllers\Frontend\UserController::class, 'addFriend']);
 Route::match(['get','post'],'accept-friend/{friend_id}', [App\Http\Controllers\Frontend\UserController::class, 'acceptFriend']);
 
+Route::get('add-post', [App\Http\Controllers\Frontend\PostController::class, 'create']);
+Route::post('add-post', [App\Http\Controllers\Frontend\PostController::class, 'store']);
+
 
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
@@ -51,7 +54,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::post('add-category', [App\Http\Controllers\Admin\CategoryController::class, 'save']);
     Route::get('edit-category/{category_id}', [App\Http\Controllers\Admin\CategoryController::class, 'edit']);
     Route::put('update-category/{category_id}', [App\Http\Controllers\Admin\CategoryController::class, 'update']);
-    Route::get('delete-category/{category_id}', [App\Http\Controllers\Admin\CategoryController::class, 'delete']);
+    Route::get('delete-category/{category_id}', [App\Http\Controllers\Admin\CategoryController::class, 'destroy']);
 
     Route::get('posts', [App\Http\Controllers\Admin\PostController::class, 'index']);
     Route::get('add-post', [App\Http\Controllers\Admin\PostController::class, 'create']);

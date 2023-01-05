@@ -21,6 +21,12 @@ class FrontendController extends Controller
         return view('frontend.index', compact('all_categories', 'latest_post', 'settings'));
     }
 
+    public function viewCategories()
+    {
+        $categories = Category::where('status', '1')->get();
+        return view('frontend.pages.categories', compact('categories'));
+    }
+
     public function viewCategoryPost($category_id)
     {
         $category = Category::where('id', $category_id)->where('status', '1')->first();
@@ -81,7 +87,7 @@ class FrontendController extends Controller
                 $friendStatus = "";
             }
 
-            return view('frontend.pages.search', compact('searchUsers', 'friendStatus'));
+            return view('frontend.pages.search', compact('searchUsers', 'friendStatus', 'user_id', 'friend_id'));
         } else {
             return redirect()->back()->with('message', 'No matches found...');
         }

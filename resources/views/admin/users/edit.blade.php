@@ -12,7 +12,7 @@
                 <h3 class="card-title">Edit User</h3>
                     
                     <div class="mb-3">
-                        <label>User Name</label>
+                        <label>Username</label>
                         <input type="text" name="name" value="{{ $user->name }}" class="form-control">
                     </div>
                     <div class="mb-3">

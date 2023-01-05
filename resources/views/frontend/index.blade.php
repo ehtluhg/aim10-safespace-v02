@@ -44,7 +44,7 @@
 
     @if(Auth::check())
 
-    @foreach($latest_post as $latest_post_item)
+    @forelse($latest_post as $latest_post_item)
     <div style="padding: 5px 100px;">
         <h2 class="wow fadeInUp" data-wow-delay="1.2s"><a href="{{ url('category/' . $latest_post_item->category->id . '/' . $latest_post_item->id) }}" style="text-decoration: none; color: #fff;">{{ $latest_post_item->title }}</a></h2>
         <h4 class="wow fadeInUp" data-wow-delay="1.4s"><span style="color: gray;">By</span> <a onclick="location.href='{{ url('profile/' . $latest_post_item->user->id) }}'">{{ $latest_post_item->user->name }}</a></h4>
@@ -67,10 +67,14 @@
         <br>
     </div>
 
-    @endforeach
+    @empty
+    <div style="padding: 5px 100px;">
+        <h2 class="wow fadeInUp" data-wow-delay="1.2s">There are no posts yet :(</h2>
+    </div>
+
+    @endforelse
 
     @else
-
     <div style="padding: 5px 100px;">
         <h2 class="wow fadeInUp" data-wow-delay="1.2s">Log in first to view posts...</h2>
 
@@ -129,8 +133,12 @@
     <div class="whitespace"></div>
     <div class="whitespace"></div>
 
-    @foreach($all_categories as $all_cat)
+    @forelse($all_categories as $all_cat)
     <h4 class="wow fadeInUp text-decoration-none text-center" data-wow-delay="1.4s" onclick="location.href='{{ url('category/' . $all_cat->id) }}'">{{ $all_cat->name }}</h4>
-    @endforeach
+
+    @empty
+    <h3 class="wow fadeInUp text-decoration-none text-center" data-wow-delay="1.4s">No categories yet...</h3>
+
+    @endforelse
 
     @endsection

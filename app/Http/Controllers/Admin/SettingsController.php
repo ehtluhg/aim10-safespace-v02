@@ -16,6 +16,12 @@ class SettingsController extends Controller
         return view('admin.settings.index', compact('settings'));
     }
 
+    public function home()
+    {
+        $settings = Setting::find(1);
+        return view('/home', compact('settings'));
+    }
+
     public function save(Request $request)
     {
         $validator = Validator::make($request->all(), [

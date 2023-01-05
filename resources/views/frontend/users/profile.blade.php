@@ -60,6 +60,7 @@
                         </li>
                         @endif
 
+                        @if(Auth::check())
                         <li class="wow fadeInUp" data-wow-delay="1.4s">
                             <div class="row g-3 mb-3">
                                 <div class="col-md">
@@ -120,6 +121,13 @@
                     </ul>
 
                     <button type="submit" name="user-submit" id="submit" class="send wow fadeInUp" data-wow-delay="2.2s">Save Details</button>
+
+                    @else
+                    <br>
+
+                    <h2 class="wow fadeInUp" data-wow-delay="1.2s">Please log in first...</h2>
+
+                    @endif
                 </form>
             </div>
         </div>

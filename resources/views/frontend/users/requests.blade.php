@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Search Results")
+@section('title', "Your Followers")
 
 @section('content')
 
@@ -13,7 +13,7 @@
             <div class="col-lg-12">
                 <br>
 
-                <h1 class="wow fadeInUp" data-wow-delay="1s">Friend Requests</h1>
+                <h1 class="wow fadeInUp" data-wow-delay="1s">Your Followers</h1>
                 <hr>
                 @if(Auth::check())
                 @forelse($friendRequestsList as $friendRequests)
@@ -26,10 +26,10 @@
 
                     <br>
 
-                    <div class="mt-3">
+                    <!-- <div class="mt-3">
                         <a href="{{ url('accept-friend/' . $friendRequests->requestedBy->id ) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">ACCEPT</button></a>
                         <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">CANCEL</button>
-                    </div>
+                    </div> -->
 
                     <hr style="opacity: 5%;">
 
@@ -39,7 +39,7 @@
                 <br>
 
                 <div>
-                    <h4 class="wow fadeInUp" data-wow-delay="1.4s">No friend requests yet :(</h4>
+                    <h4 class="wow fadeInUp" data-wow-delay="1.4s">No followers yet :(</h4>
                 </div>
 
                 <br>

@@ -13,21 +13,22 @@
             <div class="col-lg-12">
                 <br>
 
-                @foreach($categories as $all_cat)
-                <div class="card text-bg-dark">
-                    <img src="{{ asset('uploads/category/' . $categories->file->file_name) }}" class="card-img" alt="...">
-                    <div class="card-img-overlay">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small>Last updated 3 mins ago</small></p>
+                @forelse($categories as $all_cat)
+
+
+                <div class="card mt-3">
+                    <img src="{{ asset('uploads/category/' . $all_cat->file->file_name) }}" class="card-img-top" alt="..." style="height: 200px; object-fit:cover">
+                    <div class="card-body">
+                        <h4 class="wow fadeInUp text-decoration-none text-center card-title" data-wow-delay="1.4s" style="color:#0f0f0f" onclick="location.href='{{ url('category/' . $all_cat->id) }}'">{{ $all_cat->name }}</h4>
+                        <p class="wow fadeInUp text-decoration-none text-center card-text" data-wow-delay="1.6s">{!! $all_cat->description !!}</p>
                     </div>
                 </div>
-                <h4 class="wow fadeInUp text-decoration-none text-center" data-wow-delay="1.4s" onclick="location.href='{{ url('category/' . $all_cat->id) }}'">{{ $all_cat->name }}</h4>
-                <p class="wow fadeInUp text-decoration-none text-center" data-wow-delay="1.6s">{!! $all_cat->description !!}</p>
 
-                <hr style="opacity: 5%;">
+                @empty
+                <h4 class="wow fadeInUp text-decoration-none text-center card-title" data-wow-delay="1.4s" style="color:#0f0f0f">There are no categories yet...</h4>
 
-                @endforeach
+
+                @endforelse
 
             </div>
         </div>

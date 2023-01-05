@@ -18,8 +18,12 @@
                 @if(Auth::check())
                 @forelse($searchUsers as $searchResult)
                 <div>
-                    <h4 class="wow fadeInUp" data-wow-delay="1.4s">{{ $searchResult->name }}</h4>
-
+                    <h4 class="wow fadeInUp" data-wow-delay="1.4s">{{ $searchResult->name }}
+                    </h4>
+                    <!-- If user follows you back:
+                    if(searchResult->id == friend_id)
+                    <span class="wow fadeInUp badge rounded-pill text-bg-light" data-wow-delay="1.4s">FOLLOWS YOU</span>
+                    endif -->
                     <span class="wow fadeInUp badge text-bg-dark" data-wow-delay="1.4s">{{ $searchResult->email }}</span>
                     <br>
 
@@ -27,6 +31,7 @@
                     <div class="mt-3">
                         @if($friendStatus == "Friend Request Sent")
                         <button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">FOLLOWING</button>
+                        <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFOLLOW</button>
                         @elseif($friendStatus == "Unfriend")
                         <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFOLLOW</button>
                         @else
