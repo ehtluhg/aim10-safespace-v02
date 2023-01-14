@@ -23,6 +23,7 @@
                     <div class="mb-3">
                         <label>Cover/Banner</label>
                         <input type="file" name="image" class="form-control">
+                        <label class="text-muted">Files should be: jpeg, jpg, or png and less than 1mb</label>
                     </div>
                     <div class="mb-3">
                         <label>Status</label>

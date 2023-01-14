@@ -25,12 +25,22 @@
 
                     <br>
 
+                    @if(Auth::id() != $user->id)
                     <div class="mt-3">
-                        <button type="button" class="wow fadeInUp btn btn-outline-success btn-sm" data-wow-delay="1.6s">FRIEND REQUEST SENT</button>
-                        <button type="button" class="wow fadeInUp btn btn-outline-secondary btn-sm" data-wow-delay="1.6s">FRIENDS</button>
-                        <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFRIEND</button>
-                        <a href="{{ url('add-friend/' . $user->id ) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">ADD FRIEND</button></a>
+                        @if($friendStatus == "Friend Request Sent")
+                        <button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">FOLLOWING</button>
+                        <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFOLLOW</button>
+                        @elseif($friendStatus == "Unfriend")
+                        <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFOLLOW</button>
+                        @else
+                        <a href="{{ url('followUser/' . $user->id ) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">FOLLOW</button></a>
+                        @endif
                     </div>
+                    @else
+                    <div class="mt-3">
+                        <a href="{{ url('profile') }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">VIEW PROFILE</button></a>
+                    </div>
+                    @endif
 
                     <hr style="opacity: 5%;">
 

@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md">
-                                    <label>Middle Initial:</label>
+                                    <label>Middle Initial: <span class="text-muted">(Optional)</span></label>
                                     <div class="textarea wow fadeInUp">
                                         <input type="text" name="middle_name" value="{{ Auth::user()->userDetails->middle_name ?? ''}}">
                                     </div>
@@ -112,12 +112,12 @@
                             </select>
                         </li>
 
-                        <li class="wow fadeInUp" data-wow-delay="2s">
+                        <!-- <li class="wow fadeInUp" data-wow-delay="2s">
                             <label for="user-file">Profile Picture:</label>
                             <div class="textarea wow fadeInUp">
                                 <input type="file" name="file_id" value="">
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
 
                     <button type="submit" name="user-submit" id="submit" class="send wow fadeInUp" data-wow-delay="2.2s">Save Details</button>

@@ -28,10 +28,14 @@ Route::get('category/{category_id}', [App\Http\Controllers\Frontend\FrontendCont
 Route::get('category/{category_id}/{post_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'viewPost']);
 Route::get('search', [App\Http\Controllers\Frontend\FrontendController::class, 'searchUsers']);
 Route::get('requests', [App\Http\Controllers\Frontend\FrontendController::class, 'friendRequests']);
+Route::match(['get','post'],'followUser/{friend_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'follow']);
+Route::match(['get','post'],'unfollow/{friend_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'unfollow']);
+
 
 Route::get('profile', [App\Http\Controllers\Frontend\UserController::class, 'index']);
 Route::post('profile', [App\Http\Controllers\Frontend\UserController::class, 'updateUserDetails']);
 Route::get('profile/{user_id}', [App\Http\Controllers\Frontend\UserController::class, 'viewUserDetails']);
+
 
 Route::post('comments', [App\Http\Controllers\Frontend\CommentController::class, 'store']);
 Route::post('delete-comment', [App\Http\Controllers\Frontend\CommentController::class, 'delete']);

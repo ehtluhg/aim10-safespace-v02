@@ -16,8 +16,12 @@
                 @forelse($categories as $all_cat)
 
 
-                <div class="card mt-3">
+                <div class="card mt-3" onclick="location.href='{{ url('category/' . $all_cat->id) }}'">
+                    @if($all_cat->image != NULL)
                     <img src="{{ asset('uploads/category/' . $all_cat->file->file_name) }}" class="card-img-top" alt="..." style="height: 200px; object-fit:cover">
+                    @else
+                    <img src="{{ asset('assets/img/site_logo_black.png') }}" class="card-img-top" alt="..." style="height: 200px; object-fit:cover">
+                    @endif
                     <div class="card-body">
                         <h4 class="wow fadeInUp text-decoration-none text-center card-title" data-wow-delay="1.4s" style="color:#0f0f0f" onclick="location.href='{{ url('category/' . $all_cat->id) }}'">{{ $all_cat->name }}</h4>
                         <p class="wow fadeInUp text-decoration-none text-center card-text" data-wow-delay="1.6s">{!! $all_cat->description !!}</p>

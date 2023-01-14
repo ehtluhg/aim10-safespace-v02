@@ -77,8 +77,7 @@
 
                         <li class="wow fadeInUp" data-wow-delay="2s">
                             <div class="mb-3">
-                                <label>Status</label>
-                                <input type="checkbox" name="status" />
+                                <input type="hidden" name="status" value="1" />
                             </div>
                         </li>
                     </ul>

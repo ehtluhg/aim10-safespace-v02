@@ -29,10 +29,10 @@
                         <label>Description</label>
                         <textarea name="description" id="summernote" rows="5" class="form-control"></textarea>
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label>File Upload</label>
                         <input type="file" name="file_id" class="form-control">
-                    </div>
+                    </div> -->
                     <div class="mb-3">
                         <label>Status</label>
                         <input type="checkbox" name="status" />

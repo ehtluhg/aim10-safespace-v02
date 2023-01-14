@@ -60,10 +60,15 @@
                                         <p class="align-middle text-center text-xs font-weight-bold mb-0">{{ $item->updated_at }}</p>
                                     </td>
                                     <td class="align-middle">
-                                        <a href="{{ url('admin/users/' . $item->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                        <a class="btn btn-link text-dark px-3 mb-0" href="{{ url('admin/users/' . $item->id) }}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>
                                             Edit
                                         </a>
-                                    </td>
+                                        <!-- <a href="{{ url('admin/edit-category/' . $item->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                            Edit
+                                        </a> -->
+
+                                    
+                                    </td>   
                                 </tr>
                                 @endforeach
                             </tbody>

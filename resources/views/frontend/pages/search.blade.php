@@ -18,8 +18,7 @@
                 @if(Auth::check())
                 @forelse($searchUsers as $searchResult)
                 <div>
-                    <h4 class="wow fadeInUp" data-wow-delay="1.4s">{{ $searchResult->name }}
-                    </h4>
+                    <h4 class="wow fadeInUp" data-wow-delay="1.4s">{{ $searchResult->name }}</h4>
                     <!-- If user follows you back:
                     if(searchResult->id == friend_id)
                     <span class="wow fadeInUp badge rounded-pill text-bg-light" data-wow-delay="1.4s">FOLLOWS YOU</span>
@@ -31,11 +30,11 @@
                     <div class="mt-3">
                         @if($friendStatus == "Friend Request Sent")
                         <button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">FOLLOWING</button>
-                        <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFOLLOW</button>
+                        <a href="{{ url('/unfollow/' . $searchResult->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFOLLOW</button></a>
                         @elseif($friendStatus == "Unfriend")
-                        <button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFOLLOW</button>
+                        <a href="{{ url('/add-friend/' . $searchResult->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">FOLLOW</button></a>
                         @else
-                        <a href="{{ url('/add-friend/' . $searchResult->id ) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">FOLLOW</button></a>
+                        <a href="{{ url('/add-friend/' . $searchResult->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">FOLLOW</button></a>
                         @endif
                     </div>
                     @else

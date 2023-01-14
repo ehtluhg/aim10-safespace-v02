@@ -13,11 +13,11 @@
                     
                     <div class="mb-3">
                         <label>Username</label>
-                        <input type="text" name="name" value="{{ $user->name }}" class="form-control">
+                        <input type="text" name="name" value="{{ $user->name }}" class="form-control" readonly>
                     </div>
                     <div class="mb-3">
                         <label>Email Address</label>
-                        <input type="email" name="email" value="{{ $user->email }}" class="form-control">
+                        <input type="email" name="email" value="{{ $user->email }}" class="form-control" readonly>
                     </div>
                     <div class="mb-3">
                         <label>Created At</label>

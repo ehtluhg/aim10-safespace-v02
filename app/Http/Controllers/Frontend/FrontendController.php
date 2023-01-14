@@ -30,13 +30,10 @@ class FrontendController extends Controller
     public function viewCategoryPost($category_id)
     {
         $category = Category::where('id', $category_id)->where('status', '1')->first();
-        if ($category)
-        {
+        if ($category) {
             $post = Post::where('category_id', $category->id)->where('status', '1')->paginate(2);
             return view('frontend.posts.index', compact('post', 'category'));
-        }
-        else
-        {
+        } else {
             return redirect('/');
         }
         return view('frontend.index');
@@ -45,14 +42,11 @@ class FrontendController extends Controller
     public function viewPost($category_id, $post_id)
     {
         $category = Category::where('id', $category_id)->where('status', '1')->first();
-        if ($category)
-        {
+        if ($category) {
             $post = Post::where('category_id', $category->id)->where('id', $post_id)->where('status', '1')->first();
             $latest_post = Post::where('category_id', $category->id)->where('status', '1')->orderBy('created_at', 'DESC')->get()->take(3);
             return view('frontend.posts.view', compact('post', 'category', 'latest_post'));
-        }
-        else
-        {
+        } else {
             return redirect('/');
         }
         return view('frontend.index');
@@ -60,8 +54,7 @@ class FrontendController extends Controller
 
     public function searchUsers(Request $request)
     {
-        if ($request->search)
-        {
+        if ($request->search) {
 
             $searchUsers = User::where('name', 'LIKE', '%' . $request->search . '%')->latest()->paginate(3);
 
@@ -71,14 +64,14 @@ class FrontendController extends Controller
             // $friend_id = User::where('id', $id)->value('id');
             $friend_id = User::where('id', $id)->value('id');
 
-            $friendCount = Friendship::where('user_id', $user_id)->where('friend_id',$friend_id)->count();
+            $friendCount = Friendship::where('user_id', $user_id)->where('friend_id', $friend_id)->count();
 
-            if($friendCount>0){
-                $friendDetails = Friendship::where('user_id', $user_id)->where('friend_id',$friend_id)->first();
+            if ($friendCount > 0) {
+                $friendDetails = Friendship::where('user_id', $user_id)->where('friend_id', $friend_id)->first();
 
-                if($friendDetails->status == 1){
+                if ($friendDetails->status == 1) {
                     $friendStatus = "Unfriend";
-                } elseif($friendDetails->status == 0) {
+                } elseif ($friendDetails->status == 0) {
                     $friendStatus = "Friend Request Sent";
                 } else {
                     $friendStatus = "Add Friend";
@@ -92,6 +85,65 @@ class FrontendController extends Controller
             return redirect()->back()->with('message', 'No matches found...');
         }
     }
+
+    public function unfollow($friend_id)
+    {
+        $user_id = Auth::user()->id;
+        $friend = Friendship::where('user_id', $user_id)->where('friend_id', $friend_id);
+        // $friend->user_id = $data['user_id'];
+        // $friend->friend_id = $data['friend_id'];
+        $friend->update([
+            'status' => '1'
+        ]);
+
+        return redirect()->back()->with('message', 'You have unfollowed a friend!');
+    }
+
+    public function follow($friend_id)
+    {
+        $user_id = Auth::user()->id;
+        // $friend_id = User::where('id', $id)->value('id');
+        $friend_id = User::where('id', $friend_id);
+
+        $friendCount = Friendship::where('user_id', $user_id)->where('friend_id', $friend_id)->count();
+
+        if ($friendCount > 0) {
+            $friendDetails = Friendship::where('user_id', $friend_id)->where('friend_id', $user_id)->first();
+
+            if ($friendDetails->status == 1) {
+                $friendStatus = "Unfriend";
+            } elseif ($friendDetails->status == 0) {
+                $friendStatus = "Friend Request Sent";
+            } else {
+                $friendStatus = "Add Friend";
+            }
+        } else {
+            $friendStatus = "";
+        }
+
+        return view('frontend.users.view', compact('searchUsers', 'friendStatus', 'user_id', 'friend_id'));
+    }
+
+    // $user_id = Auth::user()->id;
+    // $friend_id = User::where('id', $id)->value('id');
+    // $friend_id = User::where('id', $friend_id);
+
+    // $friendCount = Friendship::where('user_id', $user_id)->where('friend_id', $friend_id)->count();
+
+    // if ($friendCount > 0) {
+    //     $friendDetails = Friendship::where('user_id', $user_id)->where('friend_id', $friend_id)->first();
+
+    //     if ($friendDetails->status == 1) {
+    //         $friendStatus = "Unfriend";
+    //     } elseif ($friendDetails->status == 0) {
+    //         $friendStatus = "Friend Request Sent";
+    //     } else {
+    //         $friendStatus = "Add Friend";
+    //     }
+    // } else {
+    //     $friendStatus = "";
+    // }
+
 
     public function friendRequests()
     {

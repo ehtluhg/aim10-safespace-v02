@@ -38,7 +38,11 @@
                                         <div class="d-flex px-2 py-1">
                                             <div>
                                                 <h6 class="mb-0 text-sm">{{ $item->id }}</h6>
+                                                @if($item->image != NULL)
                                                 <img src="{{ asset('uploads/category/' . $item->file->file_name) }}" class="avatar avatar-sm me-3" alt="user1" width="50px" height="50px">
+                                                @else
+                                                <img src="{{ asset('assets/img/placeholder-admin.png') }}" class="avatar avatar-sm me-3" alt="user1" width="50px" height="50px">
+                                                @endif
                                             </div>
                                         </div>
                                     </td>
@@ -46,7 +50,7 @@
                                         <p class="text-xs font-weight-bold mb-0">{{ $item->name }}</p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <span class="badge badge-sm {{ $item->status == 1 ? 'bg-gradient-success' : 'bg-gradient-secondary' }}">{{ $item->status == 1 ? 'Approved' : 'Pending' }}</span>
+                                        <span class="badge badge-sm {{ $item->status == 1 ? 'bg-gradient-success' : ($item->status == 2 ? 'bg-gradient-danger' : 'bg-gradient-secondary') }}">{{ $item->status == 1 ? 'Approved' : ($item->status == 2 ? 'Deleted' : 'Pending') }}</span>
                                     </td>
                                     <td class="align-middle">
                                         <span class="text-secondary text-xs font-weight-bold text-wrap">{{ $item->description }}</span>
@@ -68,8 +72,9 @@
                                             Edit
                                         </a> -->
 
-
+                                    
                                     </td>
+                                    @if($item->status != 2)
                                     <td class="align-middle">
                                         <a onclick="return confirm('Do you want to delete this category and its posts?');" class="btn btn-link text-danger text-gradient px-3 mb-0" href="{{ url('admin/delete-category/' . $item->id) }}"><i class="far fa-trash-alt me-2"></i>
                                             Delete
@@ -79,6 +84,9 @@
                                                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
                                             </svg></a> -->
                                     </td>
+                                    @else
+                                    <td></td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>

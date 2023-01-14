@@ -54,7 +54,27 @@ class UserController extends Controller
         $user = User::where('id', $user_id)->first();
         if ($user)
         {
-            return view('frontend.users.view', compact('user'));
+            $user_id = Auth::user()->id;
+            // $friend_id = User::where('id', $id)->value('id');
+            $friend_id = User::where('id', $user_id)->value('id');
+
+            $friendCount = Friendship::where('user_id', $user_id)->where('friend_id',$friend_id)->count();
+
+            if($friendCount>0){
+                $friendDetails = Friendship::where('user_id', $user_id)->where('friend_id',$friend_id)->first();
+
+                if($friendDetails->status == 1){
+                    $friendStatus = "Unfriend";
+                } elseif($friendDetails->status == 0) {
+                    $friendStatus = "Friend Request Sent";
+                } else {
+                    $friendStatus = "Add Friend";
+                }
+            } else {
+                $friendStatus = "";
+            }
+
+            return view('frontend.users.view', compact('user', 'friendStatus'));
         }
         else
         {
