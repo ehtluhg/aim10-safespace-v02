@@ -36,41 +36,22 @@
                 </div>
 
                 <br><br>
+                @if(Auth::check())
+
+
+                @if(Auth::id() != $post->created_by && $friendExist == false)
+                <br><br>
+                <h3 class="wow fadeInUp" data-wow-delay="1.2s" style="color: brown;">You are not friends with this user...</h3>
+                <br>
+
+                @elseif((Auth::id() == $post->created_by) || (Auth::id() != $post->created_by && (Auth::id() == $friendsList->user_id && $post->created_by == $friendsList->friend_id && $friendsList->status == 1)))
                 <div class="row post-description">
                     <span class="wow fadeInUp" data-wow-delay="1.6s">{!! $post->description !!}</span>
                 </div>
-                <br><br>
-
+                <br>
                 <hr>
 
-                <h1 class="wow fadeInUp" data-wow-delay="1s">Latest Posts</h1>
-                <hr style="opacity: 5%;">
-                @foreach($latest_post as $latest_post_item)
-                <h2 class="wow fadeInUp" data-wow-delay="1.2s"><a href="{{ url('category/' . $latest_post_item->category->id . '/' . $latest_post_item->id) }}" style="text-decoration: none; color: #fff;">{{ $latest_post_item->title }}</a></h2>
-                <h4 class="wow fadeInUp" data-wow-delay="1.4s"><span style="color: gray;">By</span> {{ $latest_post_item->user->name }}</h4>
-
-                <span class="wow fadeInUp badge text-bg-dark" data-wow-delay="1.4s">{{ $latest_post_item->category->name }}</span>
-
-                <br><br>
-
-                <div class="row">
-                    <div class="col-lg-4">
-                        <p class="wow fadeInUp" data-wow-delay="1.4s">DATE POSTED:</p>
-                        <h6 class="wow fadeInUp" data-wow-delay="1.6s">{{ $latest_post_item->created_at->format('m-d-Y') }}</h6>
-                    </div>
-
-                    <!-- <div class="col-lg-4">
-                        <p class="wow fadeInUp" data-wow-delay="1.4s">CATEGORY:</p>
-                        <h6 class="wow fadeInUp" data-wow-delay="1.6s">{{ $category->name }}</h6>
-                    </div> -->
-                </div>
-
-                <br>
-
-                <hr style="opacity: 2%;">
-
-                <br>
-                @endforeach
+                <div class="whitespace"></div>
 
                 <!-- Form Section Starts Here-->
 
@@ -97,19 +78,19 @@
                                 @if(Auth::check() && Auth::id() == $comment->user_id)
                                 <!-- For checking if user is logged in -->
                                 <br><br>
-                                <button type="button" class="btn btn-outline-light btn-sm">Edit</button>
+                                <!-- <button type="button" class="btn btn-outline-light btn-sm">Edit</button> -->
                                 <button type="button" value="{{ $comment->id }}" class="deleteComment btn btn-outline-danger btn-sm">Delete</button>
                                 @endif
 
                                 <hr style="opacity: 2%;">
 
-                                </div>
-                                
-                                @empty
-                                <br><br>
-                                <h3 class="wow fadeInUp" data-wow-delay="1.2s">There are no comments yet...</h3>
-                                <br><br>
-                            
+                            </div>
+
+                            @empty
+                            <br><br>
+                            <h3 class="wow fadeInUp" data-wow-delay="1.2s">There are no comments yet...</h3>
+                            <br><br>
+
                             @endforelse
                             <br>
                             <form name="add-post" id="add-post" method="post" action="{{ url('comments') }}">
@@ -154,6 +135,69 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="whitespace"></div>
+
+                <!-- Latest Posts -->
+                <hr style="opacity: 5%;">
+
+                <h1 class="wow fadeInUp" data-wow-delay="1s">Latest Posts</h1>
+                <hr style="opacity: 5%;">
+                @foreach($latest_post as $latest_post_item)
+                @if($post->id != $latest_post_item->id)
+                <h2 class="wow fadeInUp" data-wow-delay="1.2s"><a href="{{ url('category/' . $latest_post_item->category->id . '/' . $latest_post_item->id . '/' . $latest_post_item->created_by) }}" style="text-decoration: none; color: #fff;">{{ $latest_post_item->title }}</a></h2>
+                <h4 class="wow fadeInUp" data-wow-delay="1.4s"><span style="color: gray;">By</span> {{ $latest_post_item->user->name }}</h4>
+
+                <span class="wow fadeInUp badge text-bg-dark" data-wow-delay="1.4s">{{ $latest_post_item->category->name }}</span>
+
+                <br><br>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <p class="wow fadeInUp" data-wow-delay="1.4s">DATE POSTED:</p>
+                        <h6 class="wow fadeInUp" data-wow-delay="1.6s">{{ $latest_post_item->created_at->format('m-d-Y') }}</h6>
+                    </div>
+
+                    <!-- <div class="col-lg-4">
+                        <p class="wow fadeInUp" data-wow-delay="1.4s">CATEGORY:</p>
+                        <h6 class="wow fadeInUp" data-wow-delay="1.6s">{{ $category->name }}</h6>
+                    </div> -->
+                </div>
+
+                <br>
+
+                <hr style="opacity: 2%;">
+
+                <br>
+                
+                @else
+                <br><br>
+                <h3 class="wow fadeInUp text-muted" data-wow-delay="1.2s">No more posts from this user...</h3>
+                <br><br>
+                <hr style="opacity: 5%;">
+                <div class="whitespace"></div>
+
+                @endif
+
+                @endforeach
+
+
+                @elseif(Auth::id() != $post->created_by && (Auth::id() == $friendsList->user_id && $post->created_by == $friendsList->friend_id && $friendsList->status == 2))
+                <br><br>
+                <h3 class="wow fadeInUp" data-wow-delay="1.2s" style="color: brown;">You are not friends with this user...</h3>
+                <br>
+
+                @else
+                <br><br>
+                <h3 class="wow fadeInUp" data-wow-delay="1.2s" style="color: brown;">You are not friends with this user...</h3>
+                <br>
+
+                @endif
+                <hr>
+                
+                @endif
+
+
 
                 <!-- Form Section Ends Here -->
 

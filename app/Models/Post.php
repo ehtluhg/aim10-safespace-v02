@@ -6,6 +6,7 @@ use App\Models\File;
 use App\Models\User;
 use App\Models\Comment;
 use App\Models\Category;
+use App\Models\Friendship;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -32,6 +33,11 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function friend()
+    {
+        return $this->belongsTo(Friendship::class, 'created_by', 'friend_id');
     }
 
     public function comments()

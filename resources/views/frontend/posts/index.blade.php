@@ -16,7 +16,7 @@
                 <h1 class="wow fadeInUp" data-wow-delay="1s">{{ $category->name }}</h1>
                 <hr>
                 @forelse($post as $postitem)
-                <h2 class="wow fadeInUp" data-wow-delay="1.2s"><a href="{{ url('category/' . $category->id . '/' . $postitem->id) }}" style="text-decoration: none; color: #fff;">{{ $postitem->title }}</a></h2>
+                <h2 class="wow fadeInUp" data-wow-delay="1.2s"><a href="{{ url('category/' . $category->id . '/' . $postitem->id . '/' . $postitem->created_by) }}" style="text-decoration: none; color: #fff;">{{ $postitem->title }}</a></h2>
                 <h4 class="wow fadeInUp" data-wow-delay="1.4s"><span style="color: gray;">By</span> <a onclick="location.href='{{ url('profile/' . $postitem->user->id) }}'">{{ $postitem->user->name }}</a></h4>
 
                 <br><br>

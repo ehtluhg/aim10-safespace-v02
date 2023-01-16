@@ -21,6 +21,14 @@ class FrontendController extends Controller
         return view('frontend.index', compact('all_categories', 'latest_post', 'settings'));
     }
 
+    public function home()
+    {
+        $settings = Setting::find(1);
+        $all_categories = Category::where('status', '1')->get();
+        $latest_post = Post::where('status', '1')->orderBy('created_at', 'DESC')->get()->take(10);
+        return view('home', compact('all_categories', 'latest_post', 'settings'));
+    }
+
     public function viewCategories()
     {
         $categories = Category::where('status', '1')->get();
@@ -29,35 +37,45 @@ class FrontendController extends Controller
 
     public function viewCategoryPost($category_id)
     {
-        $category = Category::where('id', $category_id)->where('status', '1')->first();
-        if ($category) {
-            $post = Post::where('category_id', $category->id)->where('status', '1')->paginate(2);
-            return view('frontend.posts.index', compact('post', 'category'));
+        if (Auth::check()) {
+            $category = Category::where('id', $category_id)->where('status', '1')->first();
+            if ($category) {
+                $post = Post::where('category_id', $category->id)->where('status', '1')->paginate(2);
+                return view('frontend.posts.index', compact('post', 'category'));
+            } else {
+                return redirect('/');
+            }
+            return view('frontend.index');
         } else {
-            return redirect('/');
+            return redirect()->back()->with('message', 'Please log in first to view posts...');
         }
-        return view('frontend.index');
     }
 
-    public function viewPost($category_id, $post_id)
+    public function viewPost($category_id, $post_id, $friend_id)
     {
-        $category = Category::where('id', $category_id)->where('status', '1')->first();
-        if ($category) {
-            $post = Post::where('category_id', $category->id)->where('id', $post_id)->where('status', '1')->first();
-            $latest_post = Post::where('category_id', $category->id)->where('status', '1')->orderBy('created_at', 'DESC')->get()->take(3);
-            return view('frontend.posts.view', compact('post', 'category', 'latest_post'));
-        } else {
-            return redirect('/');
+        if (Auth::check()) {
+            $category = Category::where('id', $category_id)->where('status', '1')->first();
+            if ($category) {
+                $post = Post::where('category_id', $category->id)->where('id', $post_id)->where('status', '1')->first();
+                $latest_post = Post::where('category_id', $category->id)->where('status', '1')->where('created_by', $friend_id)->orderBy('created_at', 'DESC')->get()->take(3);
+                $user_id = Auth::user()->id;
+                $friendsList = Friendship::where('user_id', $user_id)->where('friend_id', $friend_id)->first();
+                $friendExist = Friendship::where('user_id', $user_id)->where('friend_id', $friend_id)->exists();
+                return view('frontend.posts.view', compact('post', 'category', 'latest_post', 'friendsList', 'friendExist'));
+            } else {
+                return redirect('/');
+            }
+
+            return view('frontend.index', compact('friendsList'));
         }
-        return view('frontend.index');
     }
 
     public function searchUsers(Request $request)
     {
+        if(Auth::check()) {
         if ($request->search) {
 
             $searchUsers = User::where('name', 'LIKE', '%' . $request->search . '%')->latest()->paginate(3);
-
 
             $id = User::where('name', 'LIKE', '%' . $request->search . '%')->value('id');
             $user_id = Auth::user()->id;
@@ -68,11 +86,14 @@ class FrontendController extends Controller
 
             if ($friendCount > 0) {
                 $friendDetails = Friendship::where('user_id', $user_id)->where('friend_id', $friend_id)->first();
+                $alreadyExist = Friendship::where('user_id', $friend_id)->where('friend_id', $user_id)->first();
 
                 if ($friendDetails->status == 1) {
                     $friendStatus = "Unfriend";
                 } elseif ($friendDetails->status == 0) {
                     $friendStatus = "Friend Request Sent";
+                } elseif ($alreadyExist->status == 0) {
+                    $friendStatus = "Accept";
                 } else {
                     $friendStatus = "Add Friend";
                 }
@@ -84,6 +105,9 @@ class FrontendController extends Controller
         } else {
             return redirect()->back()->with('message', 'No matches found...');
         }
+    } else {
+        return redirect()->back()->with('message', 'Please log in first to find users...');
+    }
     }
 
     public function unfollow($friend_id)
@@ -147,8 +171,13 @@ class FrontendController extends Controller
 
     public function friendRequests()
     {
-        $user_id = Auth::user()->id;
-        $friendRequestsList = Friendship::where('friend_id', $user_id)->where('status', '0')->get();
-        return view('frontend.users.requests', compact('friendRequestsList'));
+        if (Auth::check()) {
+            $user_id = Auth::user()->id;
+            $friendRequestsList = Friendship::where('friend_id', $user_id)->where('status', '0')->get();
+            $friendsList = Friendship::where('friend_id', $user_id)->where('status', '1')->get();
+            return view('frontend.users.requests', compact('friendRequestsList', 'friendsList'));
+        } else {
+            return view('frontend.users.requests');
+        }
     }
 }

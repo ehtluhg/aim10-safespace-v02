@@ -44,14 +44,15 @@
                         @if(Auth::check())
                         <li class="wow fadeInUp" data-wow-delay="1.4s">
                             <div class="row g-2 mb-3">
+                            <p class="wow fadeInUp" data-wow-delay="1.2s"><span style="color: brown;">* Required</span></p>
                                 <div class="col-md">
-                                    <label>Username:</label>
+                                    <label>Username<span style="color: brown;">*</span></label>
                                     <div class="textarea wow fadeInUp">
                                         <input type="text" name="name" value="{{ Auth::user()->name }}">
                                     </div>
                                 </div>
                                 <div class="col-md">
-                                    <label>Email Address:</label>
+                                    <label>Email Address<span style="color: brown;">*</span></label>
                                     <div class="textarea wow fadeInUp">
                                         <input type="email" name="email" readonly value="{{ Auth::user()->email }}">
                                     </div>
@@ -64,19 +65,19 @@
                         <li class="wow fadeInUp" data-wow-delay="1.4s">
                             <div class="row g-3 mb-3">
                                 <div class="col-md">
-                                    <label>First Name:</label>
+                                    <label>First Name<span style="color: brown;">*</span></label>
                                     <div class="textarea wow fadeInUp">
                                         <input type="text" name="first_name" value="{{ Auth::user()->userDetails->first_name ?? ''}}" required>
                                     </div>
                                 </div>
                                 <div class="col-md">
-                                    <label>Middle Initial: <span class="text-muted">(Optional)</span></label>
+                                    <label>Middle Initial</label>
                                     <div class="textarea wow fadeInUp">
                                         <input type="text" name="middle_name" value="{{ Auth::user()->userDetails->middle_name ?? ''}}">
                                     </div>
                                 </div>
                                 <div class="col-md">
-                                    <label>Last Name:</label>
+                                    <label>Last Name<span style="color: brown;">*</span></label>
                                     <div class="textarea wow fadeInUp">
                                         <input type="text" name="last_name" value="{{ Auth::user()->userDetails->last_name ?? ''}}" required>
                                     </div>
@@ -87,22 +88,22 @@
                         <li class="wow fadeInUp" data-wow-delay="1.6s">
                             <div class="row g-2 mb-3">
                                 <div class="col-md">
-                                    <label>Phone Number:</label>
+                                    <label>Phone Number<span style="color: brown;">*</span></label>
                                     <div class="textarea wow fadeInUp">
                                         <input type="text" placeholder="09XXXXXXXXX" name="phone_number" value="{{ Auth::user()->userDetails->phone_number ?? ''}}" required>
                                     </div>
                                 </div>
                                 <div class="col-md">
-                                    <label>Birthdate:</label>
+                                    <label>Birthdate<span style="color: brown;">*</span></label>
                                     <div class="textarea wow fadeInUp">
-                                        <input type="date" name="birthdate" value="{{ Auth::user()->userDetails->birthdate ?? ''}}" required>
+                                        <input type="date" data-date="" data-date-format="MMM-DD-YYYY" name="birthdate" value="{{ Auth::user()->userDetails->birthdate ?? ''}}" required>
                                     </div>
                                 </div>
                             </div>
                         </li>
 
                         <li class="wow fadeInUp" data-wow-delay="1.8s">
-                            <label>Pronouns:</label>
+                            <label>Pronouns<span style="color: brown;">*</span></label>
                             <select name="gender" class="form-control">                               
                                 <option value="">-- Select Pronouns --</option>
                                 <option value="1">He/Him</option>
@@ -136,5 +137,19 @@
     <!-- Form Section Ends Here -->
 </div>
 
+@endsection
+
+@section('scripts')
+
+<script>
+    $("input").on("change", function() {
+    this.setAttribute(
+        "data-date",
+        moment(this.value, "MMM-DD-YYYY")
+        .format( this.getAttribute("data-date-format") )
+    )
+}).trigger("change")
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 @endsection

@@ -17,8 +17,9 @@
                 <hr>
                 @if(Auth::check())
                 @forelse($searchUsers as $searchResult)
+                @forelse($latest_post as $latest_post_item)
                 <div>
-                    <h4 class="wow fadeInUp" data-wow-delay="1.4s">{{ $searchResult->name }}</h4>
+                    <h4 class="wow fadeInUp" data-wow-delay="1.4s"><a onclick="location.href='{{ url('profile/' . $latest_post_item->category->id . '/' . $latest_post_item->id . '/' . $latest_post_item->user->id) }}'">{{ $searchResult->name }}</a></h4>
                     <!-- If user follows you back:
                     if(searchResult->id == friend_id)
                     <span class="wow fadeInUp badge rounded-pill text-bg-light" data-wow-delay="1.4s">FOLLOWS YOU</span>
@@ -61,6 +62,7 @@
 
                 <br>
 
+                @endforelse
                 @endforelse
 
                 @else

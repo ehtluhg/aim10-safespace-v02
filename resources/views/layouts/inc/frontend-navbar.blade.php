@@ -48,21 +48,21 @@
     <ul id="menu">
         <li><a href="{{ url('/') }}">HOME</a></li>
         <li class="dropdown"><a href="{{ url('categories') }}" class="dropdown-toggle">CATEGORIES</a>
-            <ul class="text-uppercase dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="text-uppercase dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:#fff; color:#0f0f0f;">
                 @php
                 $categories = App\Models\Category::where('status', '1')->get();
                 @endphp
                 @foreach($categories as $catitem)
-                <li><a class="dropdown-item" href="{{ url('category/' . $catitem->id )}}">{{ $catitem->name }}</a></li>
+                <li><a class="dropdown-item" href="{{ url('category/' . $catitem->id )}}" style="background-color:#fff; color:#0f0f0f;">{{ $catitem->name }}</a></li>
                 @endforeach
             </ul>
         </li>
 
-        <li><a href="about.html">ABOUT</a></li>
+        <li><a href="{{ url('/about') }}">ABOUT</a></li>
         <li class="dropdown"><a href="{{ url('/profile') }}" class="dropdown-toggle">PROFILE</a>
-            <ul class="text-uppercase dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{ url('requests')}}">FOLLOWERS</a></li>
-                <li><a class="dropdown-item" href="{{ url('add-post')}}">ADD POST</a></li>
+            <ul class="text-uppercase dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:#fff; color:#0f0f0f;">
+                <li><a class="dropdown-item" href="{{ url('requests')}}" style="background-color:#fff; color:#0f0f0f;">FRIENDS</a></li>
+                <li><a class="dropdown-item" href="{{ url('add-post')}}" style="background-color:#fff; color:#0f0f0f;">ADD POST</a></li>
             </ul>
         </li>
 

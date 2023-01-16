@@ -13,6 +13,22 @@
             <div class="col-lg-12">
                 <br>
 
+                @if(session('message'))
+                <br>
+                <div class="mx-10 alert alert-dark" role="alert">{{ session('message') }}</div>
+                <br>
+                @endif
+
+                @if($errors->any())
+                <br>
+                <div class="mx-10 alert alert-danger" role="alert">
+                    @foreach($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+                <br>
+                @endif
+
                 @forelse($categories as $all_cat)
 
 

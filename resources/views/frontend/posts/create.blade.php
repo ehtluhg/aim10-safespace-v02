@@ -52,7 +52,7 @@
                                 </select>
                             </div>
                         </li>
-                        @endif
+
 
                         <li class="wow fadeInUp" data-wow-delay="1.4s">
                             <div class="textarea mb-3">
@@ -80,10 +80,18 @@
                                 <input type="hidden" name="status" value="1" />
                             </div>
                         </li>
+
                     </ul>
 
                     <button type="submit" name="post-submit" id="submit" class="send wow fadeInUp" data-wow-delay="2.2s">Add Post</button>
                 </form>
+
+                @else
+                <br><br>
+                <h3 class="wow fadeInUp" data-wow-delay="1.2s">Log in first to add a post...</h3>
+                <br><br>
+
+                @endif
             </div>
         </div>
     </div>

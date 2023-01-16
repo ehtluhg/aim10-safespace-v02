@@ -20,6 +20,7 @@ class PostController extends Controller
 
     public function create()
     {
+        $user_id = Auth::user()->id;
         $category = Category::where('status', '1')->get();
         return view('admin.posts.create', compact('category'));
     }

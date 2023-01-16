@@ -23,18 +23,21 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', [App\Http\Controllers\Frontend\FrontendController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\Frontend\FrontendController::class, 'home']);
 Route::get('categories', [App\Http\Controllers\Frontend\FrontendController::class, 'viewCategories']);
 Route::get('category/{category_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'viewCategoryPost']);
-Route::get('category/{category_id}/{post_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'viewPost']);
+Route::get('category/{category_id}/{post_id}/{friend_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'viewPost']);
 Route::get('search', [App\Http\Controllers\Frontend\FrontendController::class, 'searchUsers']);
 Route::get('requests', [App\Http\Controllers\Frontend\FrontendController::class, 'friendRequests']);
+// Route::get('requests', [App\Http\Controllers\Frontend\FrontendController::class, 'viewFriendPost']);
 Route::match(['get','post'],'followUser/{friend_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'follow']);
 Route::match(['get','post'],'unfollow/{friend_id}', [App\Http\Controllers\Frontend\FrontendController::class, 'unfollow']);
 
 
 Route::get('profile', [App\Http\Controllers\Frontend\UserController::class, 'index']);
+Route::get('about', [App\Http\Controllers\Frontend\UserController::class, 'about']);
 Route::post('profile', [App\Http\Controllers\Frontend\UserController::class, 'updateUserDetails']);
-Route::get('profile/{user_id}', [App\Http\Controllers\Frontend\UserController::class, 'viewUserDetails']);
+Route::get('profile/{category_id}/{post_id}/{friend_id}', [App\Http\Controllers\Frontend\UserController::class, 'viewUserDetails']);
 
 
 Route::post('comments', [App\Http\Controllers\Frontend\CommentController::class, 'store']);
@@ -42,6 +45,9 @@ Route::post('delete-comment', [App\Http\Controllers\Frontend\CommentController::
 
 Route::match(['get','post'],'add-friend/{friend_id}', [App\Http\Controllers\Frontend\UserController::class, 'addFriend']);
 Route::match(['get','post'],'accept-friend/{friend_id}', [App\Http\Controllers\Frontend\UserController::class, 'acceptFriend']);
+Route::match(['get','post'],'unfriend/{friend_id}', [App\Http\Controllers\Frontend\UserController::class, 'unfriend']);
+Route::match(['get','post'],'cancel/{friend_id}', [App\Http\Controllers\Frontend\UserController::class, 'cancel']);
+
 
 Route::get('add-post', [App\Http\Controllers\Frontend\PostController::class, 'create']);
 Route::post('add-post', [App\Http\Controllers\Frontend\PostController::class, 'store']);
