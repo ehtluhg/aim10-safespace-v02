@@ -17,27 +17,31 @@
                 <hr>
                 @if(Auth::check())
                 @forelse($searchUsers as $searchResult)
-                @forelse($latest_post as $latest_post_item)
                 <div>
-                    <h4 class="wow fadeInUp" data-wow-delay="1.4s"><a onclick="location.href='{{ url('profile/' . $latest_post_item->category->id . '/' . $latest_post_item->id . '/' . $latest_post_item->user->id) }}'">{{ $searchResult->name }}</a></h4>
-                    <!-- If user follows you back:
-                    if(searchResult->id == friend_id)
-                    <span class="wow fadeInUp badge rounded-pill text-bg-light" data-wow-delay="1.4s">FOLLOWS YOU</span>
-                    endif -->
+
+                    <a href="{{ url('viewProfile/' . $searchResult->id) }}">
+                        <h4 class="wow fadeInUp" data-wow-delay="1.4s">
+                                {{ $searchResult->name }}
+                        </h4>
+                    </a>
+
+
                     <span class="wow fadeInUp badge text-bg-dark" data-wow-delay="1.4s">{{ $searchResult->email }}</span>
                     <br>
 
                     @if(Auth::id() != $searchResult->id)
                     <div class="mt-3">
                         @if($friendStatus == "Friend Request Sent")
+                        <a href="{{ url('viewProfile/' . $searchResult->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">VIEW PROFILE</button></a>
                         <button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">FRIEND REQUEST SENT</button>
-                        <!-- <a href="{{ url('/unfollow/' . $searchResult->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFOLLOW</button></a> -->
                         @elseif($friendStatus == "Unfriend")
+                        <a href="{{ url('viewProfile/' . $searchResult->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">VIEW PROFILE</button></a>
                         <button type="button" class="wow fadeInUp btn btn-outline-success btn-sm" data-wow-delay="1.6s"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
                                 <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                            </svg>  FRIENDS</button>
+                            </svg> FRIENDS</button>
                         <a href="{{ url('/unfriend/' . $searchResult->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFRIEND</button></a>
                         @elseif($friendStatus == "Accept")
+                        <a href="{{ url('viewProfile/' . $searchResult->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">VIEW PROFILE</button></a>
                         <a href="{{ url('/accept-friend/' . $searchResult->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">ACCEPT</button></a>
                         <a href="{{ url('cancel/' . $searchResult->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">CANCEL</button></a>
                         @else
@@ -53,6 +57,38 @@
 
                 </div>
 
+                @forelse($latest_post as $latest_post_item)
+                <div style="padding: 5px 100px;">
+                    <a href="{{ url('category/' . $latest_post_item->category->id . '/' . $latest_post_item->id . '/' . $latest_post_item->created_by) }}" style="text-decoration: none; color: #fff; cursor: pointer;">
+                        <h2 class="wow fadeInUp" data-wow-delay="1.2s">{{ $latest_post_item->title }}</h2>
+                    </a>
+                    <h4 class="wow fadeInUp" data-wow-delay="1.4s"><span style="color: gray;">By</span> <a onclick="location.href='{{ url('profile/' . $latest_post_item->category->id . '/' . $latest_post_item->id . '/' . $latest_post_item->user->id) }}'">{{ $latest_post_item->user->name }}</a></h4>
+
+                    <span class="wow fadeInUp badge text-bg-dark" data-wow-delay="1.4s">{{ $latest_post_item->category->name }}</span>
+
+                    <br><br>
+
+                    <div class="row">
+                        <div>
+                            <p class="wow fadeInUp" data-wow-delay="1.4s">DATE POSTED:</p>
+                            <p class="wow fadeInUp" data-wow-delay="1.6s" style="color: gray;">{{ $latest_post_item->created_at->format('m-d-Y') }}</p>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <hr style="opacity: 5%;">
+
+                    <br>
+                </div>
+
+                @empty
+                <div style="padding: 5px 100px;">
+                    <h2 class="wow fadeInUp" data-wow-delay="1.2s">There are no posts yet :(</h2>
+                </div>
+
+                @endforelse
+
                 @empty
                 <br>
 
@@ -62,7 +98,7 @@
 
                 <br>
 
-                @endforelse
+
                 @endforelse
 
                 @else

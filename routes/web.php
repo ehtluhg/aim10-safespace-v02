@@ -38,6 +38,7 @@ Route::get('profile', [App\Http\Controllers\Frontend\UserController::class, 'ind
 Route::get('about', [App\Http\Controllers\Frontend\UserController::class, 'about']);
 Route::post('profile', [App\Http\Controllers\Frontend\UserController::class, 'updateUserDetails']);
 Route::get('profile/{category_id}/{post_id}/{friend_id}', [App\Http\Controllers\Frontend\UserController::class, 'viewUserDetails']);
+Route::get('viewProfile/{id}', [App\Http\Controllers\Frontend\UserController::class, 'viewProfile']);
 
 
 Route::post('comments', [App\Http\Controllers\Frontend\CommentController::class, 'store']);

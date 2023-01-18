@@ -3,8 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\UserDetails;
+use App\Models\Post;
+use App\Models\Category;
 use App\Models\Friendship;
+use App\Models\UserDetails;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,6 +38,15 @@ class User extends Authenticatable
         return $getUserId->id;
     }
 
+    public function post()
+    {
+        return $this->belongsTo(Post::class, 'post_id', 'id');
+    }
+    
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

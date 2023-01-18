@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Your Followers")
+@section('title', "Your Friends")
 
 @section('content')
 
@@ -17,7 +17,11 @@
                 <hr>
                 
                 @if(Auth::check())
-                <h3 class="wow fadeInUp" data-wow-delay="1s">Friends</h3>
+                <h3 class="wow fadeInUp" data-wow-delay="1s">Friends
+                    @if($friendsCount != 0)
+                    <span class="badge bg-dark">{{ $friendsCount }}</span>
+                    @endif
+                </h3>
                 <hr style="opacity: 5%;">
                 @forelse($friendsList as $friends)
                 <div>
@@ -49,7 +53,11 @@
                 <br>
 
                 @endforelse
-                <h3 class="wow fadeInUp" data-wow-delay="1s">Friend Requests</h3>
+                <h3 class="wow fadeInUp" data-wow-delay="1s">Friend Requests
+                    @if($requestsCount != 0)
+                    <span class="badge bg-danger">{{ $requestsCount }}</span>
+                    @endif
+                </h3>
                 <hr style="opacity: 5%;">
                 @forelse($friendRequestsList as $friendRequests)
                 <div>

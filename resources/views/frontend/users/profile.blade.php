@@ -96,7 +96,7 @@
                                 <div class="col-md">
                                     <label>Birthdate<span style="color: brown;">*</span></label>
                                     <div class="textarea wow fadeInUp">
-                                        <input type="date" data-date="" data-date-format="MMM-DD-YYYY" name="birthdate" value="{{ Auth::user()->userDetails->birthdate ?? ''}}" required>
+                                        <input type="date" name="birthdate" value="{{ Auth::user()->userDetails->birthdate ?? ''}}" required>
                                     </div>
                                 </div>
                             </div>

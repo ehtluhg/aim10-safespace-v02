@@ -61,6 +61,8 @@
         <li><a href="{{ url('/about') }}">ABOUT</a></li>
         <li class="dropdown"><a href="{{ url('/profile') }}" class="dropdown-toggle">PROFILE</a>
             <ul class="text-uppercase dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:#fff; color:#0f0f0f;">
+
+                <li><a class="dropdown-item" href="{{ url('profile')}}" style="background-color:#fff; color:#0f0f0f;">YOUR PROFILE</a></li>
                 <li><a class="dropdown-item" href="{{ url('requests')}}" style="background-color:#fff; color:#0f0f0f;">FRIENDS</a></li>
                 <li><a class="dropdown-item" href="{{ url('add-post')}}" style="background-color:#fff; color:#0f0f0f;">ADD POST</a></li>
             </ul>
@@ -85,23 +87,23 @@
         </li>
         @if(Auth::user()->role_as == '1')
         <li><button type="button" class="btn btn-outline-warning btn-sm"><a href="{{ url('/admin/dashboard') }}">
-                ADMIN
-            </a>
+                    ADMIN
+                </a>
             </button>
         </li>
         @endif
         @else
         <li><button type="button" class="btn btn-outline-dark btn-sm"><a href="{{ url('/login') }}">
-                {{ __('LOGIN') }}
-            </a>
+                    {{ __('LOGIN') }}
+                </a>
             </button>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
             </form>
         </li>
         <li><button type="button" class="btn btn-outline-dark btn-sm"><a href="{{ url('/register') }}">
-                {{ __('REGISTER') }}
-            </a>
+                    {{ __('REGISTER') }}
+                </a>
             </button>
             <form method="POST" action="{{ route('register') }}">
                 @csrf

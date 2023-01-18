@@ -55,7 +55,7 @@
         <a href="{{ url('category/' . $latest_post_item->category->id . '/' . $latest_post_item->id . '/' . $latest_post_item->created_by) }}" style="text-decoration: none; color: #fff; cursor: pointer;">
             <h2 class="wow fadeInUp" data-wow-delay="1.2s">{{ $latest_post_item->title }}</h2>
         </a>
-        <h4 class="wow fadeInUp" data-wow-delay="1.4s"><span style="color: gray;">By</span> <a onclick="location.href='{{ url('profile/' . $latest_post_item->category->id . '/' . $latest_post_item->id . '/' . $latest_post_item->user->id) }}'">{{ $latest_post_item->user->name }}</a></h4>
+        <h4 class="wow fadeInUp" data-wow-delay="1.4s"><span style="color: gray;">By</span> <a onclick="location.href='{{ url('viewProfile/' . $latest_post_item->user->id) }}'">{{ $latest_post_item->user->name }}</a></h4>
 
         <span class="wow fadeInUp badge text-bg-dark" data-wow-delay="1.4s">{{ $latest_post_item->category->name }}</span>
 

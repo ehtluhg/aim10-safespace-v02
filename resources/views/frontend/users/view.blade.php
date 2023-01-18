@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "$friend->name's Profile")
+@section('title', "$user->name's Profile")
 
 @section('content')
 
@@ -17,15 +17,15 @@
                 <hr>
                 @if(Auth::check())
                 <div>
-                    <h4 class="wow fadeInUp" data-wow-delay="1.4s">{{ $friend->name }}</h4>
+                    <h4 class="wow fadeInUp" data-wow-delay="1.4s">{{ $user->name }}</h4>
 
-                    <span class="wow fadeInUp badge text-bg-dark" data-wow-delay="1.4s">{{ $friend->email }}</span>
+                    <span class="wow fadeInUp badge text-bg-dark" data-wow-delay="1.4s">{{ $user->email }}</span>
 
 
 
                     <br>
 
-                    @if(Auth::id() != $friend->id)
+                    @if(Auth::id() != $user->id)
                     <div class="mt-3">
                         @if($friendStatus == "Friend Request Sent")
                         <button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">FRIEND REQUEST SENT</button>
@@ -34,12 +34,12 @@
                         <button type="button" class="wow fadeInUp btn btn-outline-success btn-sm" data-wow-delay="1.6s"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
                                 <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
                             </svg> FRIENDS</button>
-                        <a href="{{ url('/unfriend/' . $friend->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFRIEND</button></a>
+                        <a href="{{ url('/unfriend/' . $user->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">UNFRIEND</button></a>
                         @elseif($friendStatus == "Accept")
-                        <a href="{{ url('/accept-friend/' . $friend->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">ACCEPT</button></a>
-                        <a href="{{ url('cancel/' . $friend->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">CANCEL</button></a>
+                        <a href="{{ url('/accept-friend/' . $user->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">ACCEPT</button></a>
+                        <a href="{{ url('cancel/' . $user->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-danger btn-sm" data-wow-delay="1.6s">CANCEL</button></a>
                         @else
-                        <a href="{{ url('/add-friend/' . $friend->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">ADD FRIEND</button></a>
+                        <a href="{{ url('/add-friend/' . $user->id) }}"><button type="button" class="wow fadeInUp btn btn-outline-light btn-sm" data-wow-delay="1.6s">ADD FRIEND</button></a>
                         @endif
                     </div>
                     @else
@@ -69,11 +69,6 @@
                         <p class="wow fadeInUp" data-wow-delay="1.4s">DATE POSTED:</p>
                         <h6 class="wow fadeInUp" data-wow-delay="1.6s">{{ $latest_post_item->created_at->format('m-d-Y') }}</h6>
                     </div>
-
-                    <!-- <div class="col-lg-4">
-                        <p class="wow fadeInUp" data-wow-delay="1.4s">CATEGORY:</p>
-                        <h6 class="wow fadeInUp" data-wow-delay="1.6s">{{ $category->name }}</h6>
-                    </div> -->
                 </div>
 
                 <br>

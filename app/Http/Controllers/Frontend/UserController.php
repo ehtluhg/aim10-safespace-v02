@@ -260,4 +260,42 @@ class UserController extends Controller
 
         return redirect()->back()->with('message', 'User successfully removed from your friends list');
     }
+
+    public function viewProfile($id)
+    {
+        $user = User::where('id', $id)->first();
+        if ($user) {
+            $user_id = Auth::user()->id;
+            // $friend_id = User::where('id', $id)->value('id');
+            $friend_id = User::where('id', $id)->value('id');
+            $latest_post = Post::where('status', '1')->orderBy('created_at', 'DESC')->get()->take(10);
+
+
+            $friendCount = Friendship::where('user_id', $user_id)->where('friend_id', $friend_id)->count();
+
+            if ($friendCount > 0) {
+                $friendDetails = Friendship::where('user_id', $user_id)->where('friend_id', $friend_id)->first();
+                $alreadyExist = Friendship::where('user_id', $friend_id)->where('friend_id', $user_id)->first();
+
+                if ($friendDetails->status == 1) {
+                    $friendStatus = "Unfriend";
+                } elseif ($friendDetails->status == 0) {
+                    $friendStatus = "Friend Request Sent";
+                } elseif ($alreadyExist->status == 0) {
+                    $friendStatus = "Accept";
+                } else {
+                    $friendStatus = "Add Friend";
+                }
+            } else {
+                $friendStatus = "";
+            }
+
+            $latest_post = Post::where('created_by', $id)->where('status', '1')->orderBy('created_at', 'DESC')->get()->take(10);
+
+            return view('frontend.users.view', compact('user', 'friendStatus', 'latest_post'));
+        } else {
+            return redirect('/');
+        }
+        return view('frontend.index');
+    }
 }
